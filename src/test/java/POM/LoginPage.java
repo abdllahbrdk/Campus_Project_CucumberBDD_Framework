@@ -56,11 +56,11 @@ public class LoginPage extends BasePOM {
         Assert.assertTrue(dashboardText.isDisplayed());
     }
 
-    public void adminEnterInvalidUserNameValidPassword(String invalidUserName, String password){
+    public void adminEnterInvalidCredentials(String invalidUserName, String password){
         acceptCookiesButton.click();
         usernameInput.sendKeys(invalidUserName);
         passwordInput.sendKeys(password);
-      //  loginButton.click();
+
     }
 
 
@@ -70,19 +70,7 @@ public class LoginPage extends BasePOM {
         Assert.assertTrue(invalidLoginMessage.getText().toLowerCase().contains("invalid".toLowerCase()));
     }
 
-    public void adminEnterValidUserNameInvalidPassword(String username, String invalidPassword){
-        acceptCookiesButton.click();
-        usernameInput.sendKeys(username);
-        passwordInput.sendKeys(invalidPassword);
-       // loginButton.click();
-    }
 
-    public void adminEnterInvalidUserNameInvalidPassword(String invalidUserName, String invalidPassword){
-        acceptCookiesButton.click();
-        usernameInput.sendKeys(invalidUserName);
-        passwordInput.sendKeys(invalidPassword);
-      //  loginButton.click();
-    }
 
 
 
