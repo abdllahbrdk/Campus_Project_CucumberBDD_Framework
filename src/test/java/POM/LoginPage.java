@@ -32,6 +32,7 @@ public class LoginPage extends BasePOM {
 
 
 
+
     public void validateUserOnLoginPage(){
         Assert.assertTrue(usernameInput.isDisplayed());
         Assert.assertTrue(passwordInput.isDisplayed());
