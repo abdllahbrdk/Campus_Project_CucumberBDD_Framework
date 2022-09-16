@@ -26,6 +26,7 @@ public class BaseDriver {
     // donanimdaki adi PIPELINE, yazilimdaki adi THREAD , parallel calisan bir surec
 
 
+
     /** bu baseDriverin yeni hali parallel test olsa da calisacak olmasa da calisacak */
     private static ThreadLocal<WebDriver>  threadDriver = new ThreadLocal<>(); // her local in thread i
     // bu icerisinde WebDriver 1 WebDriver 2 yi yi tanimlicak

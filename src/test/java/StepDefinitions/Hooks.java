@@ -15,6 +15,7 @@ public class Hooks {
 
     WebDriver driver = BaseDriver.getDriver(); // we got the driver from driver class
 
+
     @Before
     public void setup(){
         driver.get("https://demo.mersys.io/");
