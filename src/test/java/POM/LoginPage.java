@@ -30,12 +30,7 @@ public class LoginPage extends BasePOM {
     @FindBy(xpath = "//div[text()='Invalid username or password']")
     private WebElement invalidLoginMessage;
 
-    private String username = "richfield.edu";
-    private String password = "Richfield2020!";
 
-    private String invalidUserName = "richfield";
-
-    private String invalidPassword = "Richfield2020";
 
     public void validateUserOnLoginPage(){
         Assert.assertTrue(usernameInput.isDisplayed());
@@ -43,11 +38,16 @@ public class LoginPage extends BasePOM {
         Assert.assertTrue(loginButton.isDisplayed());
     }
 
-    public void userEnterAdminCredentials(){
+    public void userEnterValidCredentials(String username, String password){
         acceptCookiesButton.click();
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
-        loginButton.click();
+
+    }
+
+    public void AdminUserClickLoginButton(){
+        waitUntilVisibleAndClickableAndThenClick(loginButton);
+       // loginButton.click();
     }
 
     public void validateUserSuccessfullyLoggedIn(){
@@ -55,32 +55,32 @@ public class LoginPage extends BasePOM {
         Assert.assertTrue(dashboardText.isDisplayed());
     }
 
-    public void adminEnterInvalidUserNameValidPassword(){
+    public void adminEnterInvalidUserNameValidPassword(String invalidUserName, String password){
         acceptCookiesButton.click();
         usernameInput.sendKeys(invalidUserName);
         passwordInput.sendKeys(password);
-        loginButton.click();
+      //  loginButton.click();
     }
 
 
     public void validateUserSuccessfullyNotLoggedIn(){
         wait.until(ExpectedConditions.visibilityOf(invalidLoginMessage));
         Assert.assertTrue(invalidLoginMessage.isDisplayed());
-        Assert.assertTrue(invalidLoginMessage.getText().toLowerCase().contains("invalid"));
+        Assert.assertTrue(invalidLoginMessage.getText().toLowerCase().contains("invalid".toLowerCase()));
     }
 
-    public void adminEnterValidUserNameInvalidPassword(){
+    public void adminEnterValidUserNameInvalidPassword(String username, String invalidPassword){
         acceptCookiesButton.click();
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(invalidPassword);
-        loginButton.click();
+       // loginButton.click();
     }
 
-    public void adminEnterInvalidUserNameInvalidPassword(){
+    public void adminEnterInvalidUserNameInvalidPassword(String invalidUserName, String invalidPassword){
         acceptCookiesButton.click();
         usernameInput.sendKeys(invalidUserName);
         passwordInput.sendKeys(invalidPassword);
-        loginButton.click();
+      //  loginButton.click();
     }
 
 
