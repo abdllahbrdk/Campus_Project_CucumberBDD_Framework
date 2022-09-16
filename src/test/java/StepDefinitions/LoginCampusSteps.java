@@ -3,6 +3,7 @@ package StepDefinitions;
 import ApachePOI.Resources.ExcelReader;
 import POM.BasePOM;
 import POM.LoginPage;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -24,19 +25,16 @@ public class LoginCampusSteps {
         loginPage.validateUserOnLoginPage();
     }
 
-    @When("Admin User enters valid credentials from given sheet name {string} and row number {int}")
-    public void adminUserEntersValidCredentialsFromGivenSheetNameAndRowNumberRowNumber(String sheetName,Integer rowNumber) throws IOException, InvalidFormatException {
+    @When("Admin User enters valid credentials from excel sheet name {string} and row number {string}")
+    public void adminUserEntersValidCredentialsFromExcelSheetNameAndRowNumber(String sheetName, String rowNumber) {
+
 
         loginPage = new LoginPage();
 
-        ExcelReader reader = new ExcelReader();
-        List<Map<String,String>> testData =
-                reader.getData("src/test/java/ApachePOI/Resources/NewExcelLoginData.xlsx",sheetName);
+        List<String> testData = ExcelReader.loginCredentials(sheetName, Integer.parseInt(rowNumber));
 
-        String validUsername = testData.get(rowNumber).get("username");
-        String validPassword = testData.get(rowNumber).get("password");
+        loginPage.userEnterValidCredentials(testData.get(0), testData.get(1));
 
-        loginPage.userEnterValidCredentials(validUsername,validPassword);
 
     }
 
@@ -53,53 +51,17 @@ public class LoginCampusSteps {
         loginPage.validateUserSuccessfullyLoggedIn();
     }
 
-    @When("Admin User enters invalid username and valid password credentials from given sheet name {string} and row number {int}")
-    public void adminUserEntersInvalidUsernameAndValidPasswordCredentialsFromGivenSheetNameAndRowNumberRowNumber(String sheetName, Integer rowNumber) throws IOException, InvalidFormatException {
+    @When("Admin User enters invalid credentials from excel {string} and {int}")
+    public void adminUserEntersInvalidCredentialsFromExcelSheetNameAndRowNumber(String sheetName, Integer rowNumber) {
 
         loginPage = new LoginPage();
 
-        ExcelReader reader = new ExcelReader();
-        List<Map<String,String>> testData =
-                reader.getData("src/test/java/ApachePOI/Resources/NewExcelLoginData.xlsx",sheetName);
+        List<String> testData = ExcelReader.loginCredentials(sheetName, rowNumber);
 
-        String invalidUsername = testData.get(rowNumber).get("username");
-        String validPassword = testData.get(rowNumber).get("password");
-
-        loginPage.adminEnterInvalidUserNameValidPassword(invalidUsername,validPassword);
+        loginPage.adminEnterInvalidCredentials(testData.get(0), testData.get(1));
 
     }
 
-    @When("Admin User enters valid username and invalid password credentials from given sheet name {string} and row number {int}")
-    public void adminUserEntersValidUsernameAndInvalidPasswordCredentialsFromGivenSheetNameAndRowNumberRowNumber(String sheetName, Integer rowNumber) throws IOException, InvalidFormatException {
-
-        loginPage = new LoginPage();
-
-        ExcelReader reader = new ExcelReader();
-        List<Map<String,String>> testData =
-                reader.getData("src/test/java/ApachePOI/Resources/NewExcelLoginData.xlsx",sheetName);
-
-        String validUsername = testData.get(rowNumber).get("username");
-        String invalidPassword = testData.get(rowNumber).get("password");
-
-        loginPage.adminEnterValidUserNameInvalidPassword(validUsername,invalidPassword);
-
-    }
-
-    @When("Admin User enters invalid username and invalid password credentials from given sheet name {string} and row number {int}")
-    public void adminUserEntersInvalidUsernameAndInvalidPasswordCredentialsFromGivenSheetNameAndRowNumberRowNumber(String sheetName, Integer rowNumber) throws IOException, InvalidFormatException {
-
-        loginPage = new LoginPage();
-
-        ExcelReader reader = new ExcelReader();
-        List<Map<String,String>> testData =
-                reader.getData("src/test/java/ApachePOI/Resources/NewExcelLoginData.xlsx",sheetName);
-
-        String invalidUsername = testData.get(rowNumber).get("username");
-        String invalidPassword = testData.get(rowNumber).get("password");
-
-        loginPage.adminEnterInvalidUserNameInvalidPassword(invalidUsername,invalidPassword);
-
-    }
 
     @Then("Admin User should not be able to login successfully")
     public void adminUserShouldNotBeAbleToLoginSuccessfully() {
@@ -108,4 +70,8 @@ public class LoginCampusSteps {
         loginPage.validateUserSuccessfullyNotLoggedIn();
 
     }
+
+
+
+
 }
