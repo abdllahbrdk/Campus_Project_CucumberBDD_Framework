@@ -12,16 +12,16 @@ public class LoginPage extends BasePOM {
         PageFactory.initElements(driver,this);
     }
 
-    @FindBy(css = "input[formcontrolname='username']")
+    @FindBy(id="mat-input-0")
     private WebElement usernameInput;
 
-    @FindBy(css = "input[formcontrolname='password']")
+    @FindBy(id="mat-input-1")
     private WebElement passwordInput;
 
     @FindBy(css = "button[aria-label='LOGIN']")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//button[text()='Accept all cookies']")
+    @FindBy(xpath = "(//button[@class='consent-give'])[1]")
     private WebElement acceptCookiesButton;
 
     @FindBy(xpath = "(//span[contains(text(),'Dashboard')])[2]")
@@ -34,6 +34,7 @@ public class LoginPage extends BasePOM {
 
 
     public void validateUserOnLoginPage(){
+        waitUntilVisibleAndClickableAndThenClick(usernameInput);
         Assert.assertTrue(usernameInput.isDisplayed());
         Assert.assertTrue(passwordInput.isDisplayed());
         Assert.assertTrue(loginButton.isDisplayed());
