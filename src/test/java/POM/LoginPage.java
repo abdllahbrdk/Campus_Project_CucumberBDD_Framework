@@ -30,9 +30,6 @@ public class LoginPage extends BasePOM {
     @FindBy(xpath = "//div[text()='Invalid username or password']")
     private WebElement invalidLoginMessage;
 
-
-
-
     public void validateUserOnLoginPage(){
 
         Assert.assertTrue(usernameInput.isDisplayed());
@@ -49,7 +46,7 @@ public class LoginPage extends BasePOM {
 
     public void AdminUserClickLoginButton(){
         waitUntilVisibleAndClickableAndThenClick(loginButton);
-        //loginButton.click();
+
     }
 
     public void validateUserSuccessfullyLoggedIn(){
@@ -70,13 +67,4 @@ public class LoginPage extends BasePOM {
         Assert.assertTrue(invalidLoginMessage.isDisplayed());
         Assert.assertTrue(invalidLoginMessage.getText().toLowerCase().contains("invalid".toLowerCase()));
     }
-
-
-
-
-
-
-
-
-
 }

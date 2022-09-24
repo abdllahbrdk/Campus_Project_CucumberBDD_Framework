@@ -27,12 +27,13 @@ public class BasePOM {
         wait = new WebDriverWait(BaseDriver.getDriver(),Duration.ofSeconds(30));
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"),0));
     }
-
-    public void mouseAction(WebElement element){
+    
+   public void mouseAction(WebElement element){
 
         Actions actions = new Actions(BaseDriver.getDriver());
         wait.until(ExpectedConditions.visibilityOf(element));
         actions.moveToElement(element).click().build().perform();
+
     }
 
     }

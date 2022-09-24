@@ -2,6 +2,7 @@ package POM;
 
 import Utils.BaseDriver;
 import org.junit.Assert;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -20,17 +21,17 @@ public class DialogContents extends BasePOM {
     public DialogContents() {
         PageFactory.initElements(BaseDriver.getDriver(), this);
     }
-
-    @FindBy(xpath="//ms-add-button[contains(@tooltip,'ADD')]//button")
+    
+    @FindBy(xpath = "//ms-add-button[contains(@tooltip,'ADD')]//button")
     private WebElement addButton;
-
-    @FindBy(xpath="//ms-text-field[@formcontrolname='name']//input")
+    
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='name']//input")
     private WebElement nameInput;
 
-    @FindBy(xpath="//ms-text-field[@formcontrolname='code']//input")
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='code']//input")
     private WebElement codeInput;
 
-    @FindBy(xpath="//ms-save-button//button")
+    @FindBy(xpath = "//ms-save-button//button")
     private WebElement saveButton;
 
     @FindBy(xpath = "//div[contains(text(),'successfully')]")
@@ -60,7 +61,7 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//span[contains(text(),'Delete')]")
     private WebElement deleteButton;
 
-    @FindBy(xpath = "//ms-text-field[@formcontrolname='budgetAccountIntegrationCode']//input")
+    @FindBy(css = "ms-text-field[placeholder='GENERAL.FIELD.INTEGRATION_CODE']>input")
     private WebElement integrationCode;
 
     @FindBy(xpath = "//ms-integer-field[@formcontrolname='priority']//input")
@@ -69,7 +70,7 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//div[text()=' There is no data to display ']")
     private WebElement thereIsNoDataDisplay;
 
-    @FindBy(xpath = "//mat-slide-toggle[contains(@id,'mat-slide-toggle')]")
+    @FindBy(xpath = "// mat-slide-toggle[contains(@id,'mat-slide-toggle')]")
     private WebElement activateDeactivateSwitch;
     
     @FindBy(xpath = "//div[contains(text(),'already Department')]")
@@ -334,16 +335,66 @@ public class DialogContents extends BasePOM {
         waitUntilVisibleAndClickableAndThenClick(saveButton);
     }
 
+    public void validateSearchFunction() {
+        wait.until(ExpectedConditions.visibilityOf(searchButton));
+        Assert.assertTrue(searchButton.isDisplayed());
 
+    }
 
+    public void adminUserAddBankAccounts(String name, String iban, String intCode) {
+        mouseAction(addButton);
+        wait.until(ExpectedConditions.visibilityOf(nameInput));
+        nameInput.sendKeys(name);
+        ibanInput.sendKeys(iban);
+        waitUntilVisibleAndClickableAndThenClick(currencyInput);
+        mouseAction(currency);
+        integrationCode.sendKeys(intCode);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+}
 
+    public void validateAlreadyExistMessage() {
+        wait.until(ExpectedConditions.visibilityOf(alreadyExist));
+        Assert.assertTrue(alreadyExist.isDisplayed());
+        Assert.assertTrue(alreadyExist.getText().contains("exist".toLowerCase()));
 
+    }
 
+    public void validateSuccessMessage() {
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
+        Assert.assertTrue(successMessage.isDisplayed());
+        Assert.assertTrue(successMessage.getText().contains("success".toLowerCase()));
 
+    }
 
+    public void adminUserEditBankAccounts(String name, String newName) {
+        searchInput.sendKeys(name);
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        mouseAction(editButton);
+        nameInput.clear();
+        nameInput.sendKeys(newName);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
 
+    }
 
+    public void adminUserDeleteBankAccounts(String newName) {
 
+        searchInput.sendKeys(newName);
+        searchButton.click();
+        mouseAction(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
 
+    }
+
+    public void deleteNegativeTest(String newName) {
+        searchInput.sendKeys(newName);
+        searchButton.click();
+    }
+
+    public void validateNoDataMessage() {
+        wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
+        Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
+        Assert.assertTrue(thereIsNoDataDisplay.getText().contains("display".toLowerCase()));
+
+    }
 
 }
