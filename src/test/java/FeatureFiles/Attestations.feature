@@ -25,4 +25,4 @@ Feature: Attestations Functionality
 
   Scenario: Admin User Delete Attestations  Negative Test
     When Admin User Delete Attestation  as "Johny" again
-    Then There is no Data Display message should be displayed
+    Then There is no data to display message should be displayed
