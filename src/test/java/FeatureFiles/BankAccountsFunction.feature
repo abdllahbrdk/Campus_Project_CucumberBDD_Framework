@@ -5,7 +5,7 @@ Feature: Admin User should be able to add, edit and delete Bank Accounts
     Given Admin User navigates to login page
     When Admin User enters valid credentials from excel sheet name "Login" and row number "1"
     And Admin User clicks on login button
-    Then Successfully message should be displayed
+    Then Admin User should login successfully
     Then Admin User navigates to Bank Accounts page
     And Admin User should have search function in Bank Accounts page
 

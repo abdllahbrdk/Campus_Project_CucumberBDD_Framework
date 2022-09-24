@@ -4,7 +4,7 @@ Feature: Fields Functionality
     Given Admin User navigates to login page
     When Admin User enters valid credentials from excel sheet name "Login" and row number "1"
     And Admin User clicks on login button
-    Then Successfully message should be displayed
+    Then Admin User should login successfully
     Then Admin User Navigates to Fields Bar
 
     Scenario: Admin User Add Fields Positive Test
@@ -25,5 +25,5 @@ Feature: Fields Functionality
 
             Scenario: Admin User Delete Fields Negative Test
               When Admin User Delete Fields as "Chemistry" again
-              Then There is no Data Display message should be displayed
+              Then There is no data to display message should be displayed
 

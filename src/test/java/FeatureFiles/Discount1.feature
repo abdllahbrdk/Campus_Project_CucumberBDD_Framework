@@ -4,7 +4,7 @@ Feature: Discount Feature
     Given Admin User navigates to login page
     When Admin User enters valid credentials from excel sheet name "Login" and row number "1"
     And Admin User clicks on login button
-    Then Successfully message should be displayed
+    Then Admin User should login successfully
     Given Admin User navigates to discounts
     Then Search Functionality should be present
 

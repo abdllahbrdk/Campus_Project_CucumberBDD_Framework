@@ -55,11 +55,7 @@ public class FieldsSteps {
         dialogContents.deleteFieldsNegative(name);
 
     }
-    @Then("There is no Data Display message should be displayed")
-    public void thereIsNoDataDisplayMessageShouldBeDisplayed() {
-        dialogContents = new DialogContents();
-        dialogContents.validateNoDataMessage();
-    }
+
 
 
 }
