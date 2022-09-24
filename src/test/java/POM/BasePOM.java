@@ -32,6 +32,13 @@ public class BasePOM {
     public void waitUntilLoading(){
         wait = new WebDriverWait(BaseDriver.getDriver(),Duration.ofSeconds(30));
 
+    public void waitUntilLoading(){
+        wait = new WebDriverWait(BaseDriver.getDriver(),Duration.ofSeconds(30));
+
+        //fuse-progress-bar in child lari 0 olana kadar bekle methodu
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"),0));
+    }
+
 
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"),0));
     }
