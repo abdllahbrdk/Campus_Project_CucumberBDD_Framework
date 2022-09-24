@@ -18,6 +18,12 @@ public class NavigationBarContents extends BasePOM {
     @FindBy(xpath = "//span[text()='Parameters']")
     private WebElement parametersButton;
 
+    @FindBy(xpath = "//span[text()='School Setup']")
+    private WebElement schoolSetup;
+
+    @FindBy (xpath = "//span[text()='Departments']")
+    private WebElement departmentsButton;
+
     @FindBy(xpath = "//span[text()='Grade Levels']")
     private WebElement gradeLevelsButton;
 
@@ -63,6 +69,13 @@ public class NavigationBarContents extends BasePOM {
     public void validateAttestationPresent(){
         Assert.assertTrue(attestationsButton.isDisplayed());
     }
+    
+      public void navigateToDepartmentsPage() {
+        setupButton.click();
+        schoolSetup.click();
+        waitUntilVisibleAndClickableAndThenClick(departmentsButton);
+    }
+
 
 
 }

@@ -9,11 +9,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-
 import javax.xml.xpath.XPath;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DialogContents extends BasePOM {
 
@@ -71,16 +71,15 @@ public class DialogContents extends BasePOM {
 
     @FindBy(xpath = "//mat-slide-toggle[contains(@id,'mat-slide-toggle')]")
     private WebElement activateDeactivateSwitch;
+    
+    @FindBy(xpath = "//div[contains(text(),'already Department')]")
+    private WebElement alreadyDepartmentMessage;
 
     @FindBy(xpath = "//ms-text-field[@formcontrolname='order']//input")
     private WebElement orderInput;
 
     @FindBy(css = "div[class='mat-form-field-infix ng-tns-c74-103']>mat-select")
     private WebElement nextGradeDropDown;
-
-    @FindAll(@FindBy(css = "tr[class='mat-row cdk-row ng-tns-c328-1066 remove-background ng-star-inserted']"))
-    private List<WebElement> listElement;
-
 
     public void switchActivateAndDeactivate(){
         waitUntilVisibleAndClickableAndThenClick(activateDeactivateSwitch);
@@ -97,11 +96,59 @@ public class DialogContents extends BasePOM {
     }
 
     public void successMessageValidation(){
+
         wait.until(ExpectedConditions.visibilityOf(successMessage));
         Assert.assertTrue(successMessage.isDisplayed());
         Assert.assertTrue(successMessage.getText().contains("success".toLowerCase()));
     }
 
+    public void adminUserAddDepartments(String username, String code) {
+
+        waitUntilLoading();
+        addButton.click();
+        wait.until(ExpectedConditions.visibilityOf(nameInput));
+        nameInput.sendKeys(username);
+        codeInput.sendKeys(code);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+
+    }
+
+    public void adminUserEditDepartment(String newName) {
+
+        waitUntilLoading();
+        mouseAction(editButton);
+        nameInput.clear();
+        nameInput.sendKeys(newName);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+    }
+
+    public void adminUserDeleteDepartments() {
+
+       waitUntilLoading();
+        wait.until(ExpectedConditions.visibilityOf(trashButton));
+
+       mouseAction(trashButton);
+        wait.until(ExpectedConditions.visibilityOf(deleteButton));
+        deleteButton.click();
+
+    }
+    public void deleteNegativeDepartments() {
+
+        waitUntilLoading();
+    }
+
+    public void departmentAlreadyMessage() {
+        wait.until(ExpectedConditions.visibilityOf(alreadyDepartmentMessage));
+        Assert.assertTrue(alreadyDepartmentMessage.isDisplayed());
+        Assert.assertTrue(alreadyDepartmentMessage.getText().contains("already".toLowerCase()));
+    }
+    public void validateNoDataDisplayed() {
+        wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
+        Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
+        String expectedResult = "There is no data to display";
+        Assert.assertEquals(thereIsNoDataDisplay.getText(),expectedResult);
+    }
+    
    public void alreadyExistMessageValidation(){
         wait.until(ExpectedConditions.visibilityOf(alreadyExist));
         Assert.assertTrue(alreadyExist.isDisplayed());
@@ -192,6 +239,7 @@ public class DialogContents extends BasePOM {
         wait.until(ExpectedConditions.elementToBeClickable(trashButton)).click();
         waitUntilVisibleAndClickableAndThenClick(deleteButton);
    }
+
 
 
 }
