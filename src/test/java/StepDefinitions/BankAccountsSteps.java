@@ -77,11 +77,5 @@ public class BankAccountsSteps {
     }
 
 
-    @Then("Success message should be displayed")
-    public void successMessageShouldBeDisplayed() {
-        dialogContents = new DialogContents();
-        dialogContents.validateSuccessMessage();
-
-    }
 
 }

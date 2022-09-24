@@ -4,16 +4,16 @@ Feature: Admin User should be able to Add, Edit and Delete Document Types
     Given Admin User navigates to login page
     When Admin User enters valid credentials from excel sheet name "Login" and row number "1"
     And Admin User clicks on login button
-    Then Successfully message should be displayed
+    Then Admin User should login successfully
 
     Scenario: Admin User should be able to Add Document Types
       When Admin User Add Document Type with a Name as "Alex" and Select Stage "Certificate"
-      Then Successfully message should be displayed deneme
+      Then Success message should be displayed
 
     Scenario: Admin User should be able to Edit Document Types
       When Admin User Edit Document Type "Alex" to update "ALEX De Souza" and Select Stage "Contract"
-      Then Successfully message should be displayed deneme
+      Then Success message should be displayed
 
     Scenario: Admin User should be able to Delete Document Types
       When Admin User Click Delete Document Type "ALEX De Souza"
-      Then Successfully message should be displayed deneme
+      Then Success message should be displayed

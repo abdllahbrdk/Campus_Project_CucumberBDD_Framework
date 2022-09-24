@@ -39,12 +39,4 @@ public class DocumentTypesSteps {
         dialogContents.deleteCountryType(documentTypeNameToDelete);
     }
 
-    @Then("Successfully message should be displayed deneme")
-    public void successfullyMessageShouldBeDisplayed() {
-
-        dialogContents = new DialogContents();
-        dialogContents.validateSuccessMessage();
-
-
-    }
 }

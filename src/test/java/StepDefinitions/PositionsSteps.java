@@ -40,11 +40,6 @@ public class PositionsSteps {
         dialogContents.createEmployeePositions(name,shortName);
     }
 
-    @Then("Success message should be displayed")
-    public void successMessageShouldBeDisplayed() {
-
-        dialogContents.validateSuccessMessage();
-    }
 
     @And("Admin User create again Employee Positions name as {string} and short name as {string}")
     public void adminUserCreateAgainEmployeePositionsNameAsAndShortNameAs(String name, String shortName) {
@@ -52,11 +47,6 @@ public class PositionsSteps {
         dialogContents.createEmployeePositions(name,shortName);
     }
 
-    @Then("Already exists message should be displayed")
-    public void alreadyExistsMessageShouldBeDisplayed() {
-
-        dialogContents.validateAlreadyExistMessage();
-    }
 
     @And("Admin User edit Employee Positions existName as {string} to newName as {string} and short name as {string}")
     public void adminUserEditEmployeePositionsNameAsAndShortNameAs(String existName,String newName, String shortName) {
@@ -76,11 +66,7 @@ public class PositionsSteps {
         dialogContents.deleteNegativeTest(name);
     }
 
-    @Then("There is no data message should be displayed")
-    public void thereIsNoDataMessageShouldBeDisplayed() {
 
-        dialogContents.validateNoDataMessage();
-    }
 
 
 }

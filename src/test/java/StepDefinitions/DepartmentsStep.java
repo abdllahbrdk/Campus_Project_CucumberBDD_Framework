@@ -22,12 +22,6 @@ public class DepartmentsStep {
         dialogContents.adminUserAddDepartments(username, code);
     }
 
-    @Then("Success message should be displayed")
-    public void successMessageShouldBeDisplayed() {
-        dialogContents = new DialogContents();
-        dialogContents.validateSuccessMessage();
-    }
-
     @Then("Already Department message should be displayed")
     public void alreadyDepartmentMessageShouldBeDisplayed() {
         dialogContents = new DialogContents();
@@ -56,12 +50,7 @@ public class DepartmentsStep {
 
     }
 
-    @Then("There is no data to display message should be displayed")
-    public void thereIsNoDataToDisplayMessageShouldBeDisplayed() {
-        dialogContents = new DialogContents();
-        dialogContents.validateNoDataDisplayed();
 
-    }
 
 
 }
