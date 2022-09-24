@@ -58,7 +58,7 @@ public class LoginPage extends BasePOM {
     }
 
     public void adminEnterInvalidCredentials(String invalidUserName, String password){
-        acceptCookiesButton.click();
+        waitUntilVisibleAndClickableAndThenClick(acceptCookiesButton);
         usernameInput.sendKeys(invalidUserName);
         passwordInput.sendKeys(password);
 
