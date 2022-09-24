@@ -34,14 +34,14 @@ public class LoginPage extends BasePOM {
 
 
     public void validateUserOnLoginPage(){
-        waitUntilVisibleAndClickableAndThenClick(usernameInput);
+
         Assert.assertTrue(usernameInput.isDisplayed());
         Assert.assertTrue(passwordInput.isDisplayed());
         Assert.assertTrue(loginButton.isDisplayed());
     }
 
     public void userEnterValidCredentials(String username, String password){
-        acceptCookiesButton.click();
+        waitUntilVisibleAndClickableAndThenClick(acceptCookiesButton);
         usernameInput.sendKeys(username);
         passwordInput.sendKeys(password);
 
@@ -49,7 +49,7 @@ public class LoginPage extends BasePOM {
 
     public void AdminUserClickLoginButton(){
         waitUntilVisibleAndClickableAndThenClick(loginButton);
-       // loginButton.click();
+        //loginButton.click();
     }
 
     public void validateUserSuccessfullyLoggedIn(){
