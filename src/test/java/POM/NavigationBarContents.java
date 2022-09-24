@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 
 public class NavigationBarContents extends BasePOM {
 
@@ -67,9 +66,6 @@ public class NavigationBarContents extends BasePOM {
 
     @FindBy(xpath = "(//span[text()='Fields'])[1]")
     private WebElement fieldsButton;
-
-    @FindBy(xpath = "//span[text()='Human Resources']")
-    private WebElement humanResourcesButton;
 
     @FindBy(xpath = "(//span[text()='Attestations'])[1]")
     private WebElement attestationsButton;

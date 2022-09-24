@@ -43,7 +43,7 @@ public class PositionsSteps {
     @Then("Success message should be displayed")
     public void successMessageShouldBeDisplayed() {
 
-        dialogContents.validateSuccessfullyMessage();
+        dialogContents.validateSuccessMessage();
     }
 
     @And("Admin User create again Employee Positions name as {string} and short name as {string}")
@@ -55,7 +55,7 @@ public class PositionsSteps {
     @Then("Already exists message should be displayed")
     public void alreadyExistsMessageShouldBeDisplayed() {
 
-        dialogContents.validateAlreadyExistsMessage();
+        dialogContents.validateAlreadyExistMessage();
     }
 
     @And("Admin User edit Employee Positions existName as {string} to newName as {string} and short name as {string}")
