@@ -5,9 +5,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
@@ -28,7 +31,25 @@ public class BasePOM {
         element.click();
     }
 
+    public void waitUntilLoading() {
+        WebDriverWait wait = new WebDriverWait(BaseDriver.driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
+    }
+
+    public void waitUntilClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
 
 
+    }
+
+    public void mouseAction(WebElement element){
+
+        Actions actions = new Actions(BaseDriver.getDriver());
+        wait.until(ExpectedConditions.visibilityOf(element));
+        actions.moveToElement(element).click().build().perform();
+
+
+    }
 
 }
