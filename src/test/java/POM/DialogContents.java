@@ -10,11 +10,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import org.openqa.selenium.support.ui.Select;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import org.testng.Assert;
-import org.openqa.selenium.support.ui.Select;
 import javax.xml.xpath.XPath;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -85,6 +86,34 @@ public class DialogContents extends BasePOM {
 
     @FindBy(css = "div[class='mat-form-field-infix ng-tns-c74-103']>mat-select")
     private WebElement nextGradeDropDown;
+    
+    @FindBy(xpath = "(//span[text()='Setup'])[1]")
+    private WebElement setupButton;
+
+    @FindBy(xpath = "//span[text()='Parameters']")
+    private WebElement parametersButton;
+
+    @FindBy(xpath = "//span[text()='Discounts']")
+    private WebElement discountsButton;
+
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='code']//input")
+    private WebElement addIntegrationCode;
+
+    @FindBy(xpath = "//ms-text-field[@formcontrolname='description']//input")
+    private WebElement addDescription;
+
+    @FindBy(xpath = "//ms-text-field[contains(@placeholder,'TITLE.DESCRIPTION')]//input")
+    private WebElement searchDescription;
+
+    @FindBy(xpath = "//ms-integer-field[@formcontrolname='priority']//input")
+    private WebElement addPriorityCode;
+
+    @FindBy(xpath = "//ms-search-button/div/button/span[1]/mat-spinner")
+    private WebElement searchLoading;
+
+    @FindBy(xpath = "//ms-delete-button//button")
+    private WebElement firstDeleteButton;
+
     
        @FindBys({
             @FindBy(xpath = "//mat-option[contains(@id,'mat-option')]//span")
@@ -282,13 +311,84 @@ public class DialogContents extends BasePOM {
                 } catch (AWTException ex) {
                     throw new RuntimeException(ex);
                 }
-
             }
         }
         waitUntilClickable(saveButton);
         saveButton.click();
 
     }
+    
+    public void navigateToDiscounts() {
+        waitUntilVisibleAndClickableAndThenClick(setupButton);
+        waitUntilVisibleAndClickableAndThenClick(parametersButton);
+        waitUntilVisibleAndClickableAndThenClick(discountsButton);
+    }
+
+    public void searchFuncAssertion() {
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        Assert.assertTrue(searchButton.isDisplayed());
+    }
+
+    public void addDiscount(String description,String integration,String priority) {
+        waitUntilVisibleAndClickableAndThenClick(addButton);
+        waitUntilVisibleAndClickableAndThenClick(addDescription);
+        addDescription.sendKeys(description);
+        waitUntilVisibleAndClickableAndThenClick(addIntegrationCode);
+        addIntegrationCode.sendKeys(integration);
+        waitUntilVisibleAndClickableAndThenClick(addPriorityCode);
+        addPriorityCode.sendKeys(priority);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+
+    }
+
+    public void successMessageAssertion() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
+        Assert.assertTrue(successMessage.isDisplayed());
+        //closeDialog.click();
+    }
+
+    public void alreadyExistsMessageAssertion() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(alreadyExist));
+        Assert.assertTrue(alreadyExist.isDisplayed());
+        closeDialog.click();
+
+    }
+
+    public void editDiscount(String description) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitUntilVisibleAndClickableAndThenClick(searchDescription);
+        searchDescription.clear();
+        searchDescription.sendKeys(description);
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//ms-search-button/div/button/span[1]/mat-spinner"), 0));
+        waitUntilVisibleAndClickableAndThenClick(editButton);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+    }
+
+    public void deleteDiscount(String description) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitUntilVisibleAndClickableAndThenClick(searchDescription);
+        searchDescription.clear();
+        searchDescription.sendKeys(description);
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//ms-search-button/div/button/span[1]/mat-spinner"), 0));
+        waitUntilVisibleAndClickableAndThenClick(firstDeleteButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+    }
+    public void thereIsNoDataAssertion(String description){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitUntilVisibleAndClickableAndThenClick(searchDescription);
+        searchDescription.clear();
+        searchDescription.sendKeys(description);
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.xpath("//ms-search-button/div/button/span[1]/mat-spinner"), 0));
+        wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
+        Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
+
+            }
+    
 
     public void editDocumentTypes(String oldDocumentName, String newDocumentName, String stage) {
         searchInput.sendKeys(oldDocumentName);
@@ -402,7 +502,7 @@ public class DialogContents extends BasePOM {
         mouseAction(currency);
         integrationCode.sendKeys(intCode);
         waitUntilVisibleAndClickableAndThenClick(saveButton);
-}
+   }
 
     public void validateAlreadyExistMessage() {
         wait.until(ExpectedConditions.visibilityOf(alreadyExist));
