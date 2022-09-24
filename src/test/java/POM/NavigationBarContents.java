@@ -17,6 +17,14 @@ public class NavigationBarContents extends BasePOM {
     @FindBy(xpath = "//span[text()='Parameters']")
     private WebElement parametersButton;
 
+    @FindBy(xpath = "//span[text()='Document Types']")
+    private WebElement documentTypesButton;
 
+    public void navigateToDocumentTypesPage() {
+        //moreOptionsButton.click();
+        setupButton.click();
+        parametersButton.click();
+        documentTypesButton.click();
+    }
 
 }

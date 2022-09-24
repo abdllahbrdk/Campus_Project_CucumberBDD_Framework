@@ -1,9 +1,20 @@
 package POM;
 
 import Utils.BaseDriver;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogContents extends BasePOM {
 
@@ -35,7 +46,7 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//button[@aria-label='Close dialog']")
     private WebElement closeDialog;
 
-    @FindBy(xpath = "(//div[contains(@class,'mat-form-field-infix ng-tns-c74')]//input)[1]")
+    @FindBy(xpath = "//ms-text-field[@placeholder='GENERAL.FIELD.NAME']//input")
     private WebElement searchInput;
 
     @FindBy(xpath = "//ms-search-button//button")
@@ -62,6 +73,79 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//mat-slide-toggle[contains(@id,'mat-slide-toggle')]")
     private WebElement activateDeactivateSwitch;
 
+    @FindBys({
+            @FindBy(xpath = "//mat-option[contains(@id,'mat-option')]//span")
+    })
+    private  List<WebElement> stageDropDownList;
 
+    @FindBy(xpath = "//ms-dialog-content//mat-select")
+    private WebElement stageButton;
+
+
+    public void addDocumentTypes(String name, String stage){
+
+        addButton.click();
+        nameInput.sendKeys(name);
+        stageButton.click();
+
+        List<WebElement> stageList = stageDropDownList;
+        for (WebElement e : stageList){
+            if (e.getText().equalsIgnoreCase(stage)){
+                e.click();
+                try {
+                    Robot robot = new Robot();
+                    robot.keyPress(KeyEvent.VK_ESCAPE);
+                    robot.keyRelease(KeyEvent.VK_ESCAPE);
+                } catch (AWTException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        }
+        waitUntilClickable(saveButton);
+        saveButton.click();
+
+    }
+
+    public void editDocumentTypes(String oldDocumentName, String newDocumentName, String stage) {
+        searchInput.sendKeys(oldDocumentName);
+        searchButton.click();
+        waitUntilClickable(editButton);
+        editButton.click();
+        nameInput.clear();
+        nameInput.sendKeys(newDocumentName);
+        stageButton.click();
+        List<WebElement> stageList = stageDropDownList;
+        for (WebElement e : stageList){
+            if (e.getText().equalsIgnoreCase(stage)){
+                e.click();
+                try {
+                    Robot robot = new Robot();
+                    robot.keyPress(KeyEvent.VK_ESCAPE);
+                    robot.keyRelease(KeyEvent.VK_ESCAPE);
+                } catch (AWTException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        }
+        waitUntilClickable(saveButton);
+        saveButton.click();
+
+    }
+
+    public void deleteCountryType(String documentTypeNameToDelete){
+        searchInput.sendKeys(documentTypeNameToDelete);
+        searchButton.click();
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
+        waitUntilVisibleAndClickableAndThenClick(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+
+
+    }
+    public void validateUserSuccessfullyMessage(){
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
+        Assert.assertTrue(successMessage.isDisplayed());
+    }
 
 }
