@@ -26,4 +26,4 @@ Feature: Positions Functionality
 
   Scenario: Delete Position Categories Negative Test
     And Admin User delete again Position Categories name as "Instructors"
-    Then There is no data message should be displayed
+    Then There is no data to display message should be displayed
