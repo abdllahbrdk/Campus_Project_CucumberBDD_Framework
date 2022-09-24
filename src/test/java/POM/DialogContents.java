@@ -7,8 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import org.testng.Assert;
 import org.openqa.selenium.support.ui.Select;
 import javax.xml.xpath.XPath;
@@ -46,7 +50,7 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//button[@aria-label='Close dialog']")
     private WebElement closeDialog;
 
-    @FindBy(xpath = "(//div[contains(@class,'mat-form-field-infix ng-tns-c74')]//input)[1]")
+    @FindBy(xpath = "//ms-text-field[@placeholder='GENERAL.FIELD.NAME']//input")
     private WebElement searchInput;
 
     @FindBy(xpath = "//ms-search-button//button")
@@ -81,6 +85,14 @@ public class DialogContents extends BasePOM {
 
     @FindBy(css = "div[class='mat-form-field-infix ng-tns-c74-103']>mat-select")
     private WebElement nextGradeDropDown;
+    
+       @FindBys({
+            @FindBy(xpath = "//mat-option[contains(@id,'mat-option')]//span")
+    })
+    private  List<WebElement> stageDropDownList;
+
+    @FindBy(xpath = "//ms-dialog-content//mat-select")
+    private WebElement stageButton;
 
     public void switchActivateAndDeactivate(){
         waitUntilVisibleAndClickableAndThenClick(activateDeactivateSwitch);
@@ -143,6 +155,7 @@ public class DialogContents extends BasePOM {
         Assert.assertTrue(alreadyDepartmentMessage.isDisplayed());
         Assert.assertTrue(alreadyDepartmentMessage.getText().contains("already".toLowerCase()));
     }
+    
     public void validateNoDataDisplayed() {
         wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
         Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
@@ -150,11 +163,6 @@ public class DialogContents extends BasePOM {
         Assert.assertEquals(thereIsNoDataDisplay.getText(),expectedResult);
     }
     
-   public void alreadyExistMessageValidation(){
-        wait.until(ExpectedConditions.visibilityOf(alreadyExist));
-        Assert.assertTrue(alreadyExist.isDisplayed());
-        Assert.assertTrue(alreadyExist.getText().contains("exist".toLowerCase()));
-   }
 
    public void editGradeLevels(String name,String shortName2,String order){
         waitUntilVisibleAndClickableAndThenClick(editButton);
@@ -210,11 +218,6 @@ public class DialogContents extends BasePOM {
        waitUntilVisibleAndClickableAndThenClick(deleteButton);
    }
 
-   public void validateThereIsNoData(){
-        wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
-        Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
-   }
-
    public void addAttestation(String name){
        waitUntilLoading();
        addButton.click();
@@ -262,18 +265,67 @@ public class DialogContents extends BasePOM {
         waitUntilVisibleAndClickableAndThenClick(saveButton);
     }
 
-    public void validateSuccessfullyMessage() {
+    public void addDocumentTypes(String name, String stage){
 
-        wait.until(ExpectedConditions.visibilityOf(successMessage));
-        Assert.assertTrue(successMessage.isDisplayed());
-        Assert.assertTrue(successMessage.getText().contains("success".toLowerCase()));
+        addButton.click();
+        nameInput.sendKeys(name);
+        stageButton.click();
+
+        List<WebElement> stageList = stageDropDownList;
+        for (WebElement e : stageList){
+            if (e.getText().equalsIgnoreCase(stage)){
+                e.click();
+                try {
+                    Robot robot = new Robot();
+                    robot.keyPress(KeyEvent.VK_ESCAPE);
+                    robot.keyRelease(KeyEvent.VK_ESCAPE);
+                } catch (AWTException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        }
+        waitUntilClickable(saveButton);
+        saveButton.click();
+
     }
 
-    public void validateAlreadyExistsMessage(){
+    public void editDocumentTypes(String oldDocumentName, String newDocumentName, String stage) {
+        searchInput.sendKeys(oldDocumentName);
+        searchButton.click();
+        waitUntilClickable(editButton);
+        editButton.click();
+        nameInput.clear();
+        nameInput.sendKeys(newDocumentName);
+        stageButton.click();
+        List<WebElement> stageList = stageDropDownList;
+        for (WebElement e : stageList){
+            if (e.getText().equalsIgnoreCase(stage)){
+                e.click();
+                try {
+                    Robot robot = new Robot();
+                    robot.keyPress(KeyEvent.VK_ESCAPE);
+                    robot.keyRelease(KeyEvent.VK_ESCAPE);
+                } catch (AWTException ex) {
+                    throw new RuntimeException(ex);
+                }
 
-        wait.until(ExpectedConditions.visibilityOf(alreadyExist));
-        Assert.assertTrue(alreadyExist.getText().contains("Already exists".toLowerCase()));
+            }
+        }
+        waitUntilClickable(saveButton);
+        saveButton.click();
+
     }
+
+    public void deleteCountryType(String documentTypeNameToDelete){
+        searchInput.sendKeys(documentTypeNameToDelete);
+        searchButton.click();
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
+        waitUntilVisibleAndClickableAndThenClick(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+
+
+    } 
 
     public void editEmployeePositions(String existName,String newName, String shortName){
 
@@ -388,13 +440,6 @@ public class DialogContents extends BasePOM {
     public void deleteNegativeTest(String newName) {
         searchInput.sendKeys(newName);
         searchButton.click();
-    }
-
-    public void validateNoDataMessage() {
-        wait.until(ExpectedConditions.visibilityOf(thereIsNoDataDisplay));
-        Assert.assertTrue(thereIsNoDataDisplay.isDisplayed());
-        Assert.assertTrue(thereIsNoDataDisplay.getText().contains("display".toLowerCase()));
-
     }
 
 }

@@ -20,13 +20,14 @@ public class NavigationBarContents extends BasePOM {
     @FindBy(xpath = "//span[text()='Parameters']")
     private WebElement parametersButton;
 
+    @FindBy(xpath = "//span[text()='Document Types']")
+    private WebElement documentTypesButton;
 
     @FindBy(xpath = "//span[text()='Bank Accounts']")
     private WebElement bankAccountsButton;
 
     @FindBy(xpath = "//span[text()='Human Resources']")
     private WebElement humanResourcesButton;
-
 
     @FindBy(xpath = "(//span[text()='Setup'])[3]")
     private WebElement setupBtnThree;
@@ -142,7 +143,13 @@ public class NavigationBarContents extends BasePOM {
         setupButton.click();
         parametersButton.click();
         waitUntilVisibleAndClickableAndThenClick(bankAccountsButton);
-
+    }
+    
+         public void navigateToDocumentTypesPage() {
+      
+        setupButton.click();
+        parametersButton.click();
+        documentTypesButton.click();
     }
 
 }

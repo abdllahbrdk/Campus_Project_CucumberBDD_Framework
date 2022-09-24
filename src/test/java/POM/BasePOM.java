@@ -1,5 +1,6 @@
 package POM;
 import Utils.BaseDriver;
+import junit.framework.Assert;
 import org.openqa.selenium.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,7 +23,17 @@ public class BasePOM {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
- 
+
+    public void waitUntilClickable(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void waitUntilVisible(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(BaseDriver.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
     public void waitUntilLoading(){
         wait = new WebDriverWait(BaseDriver.getDriver(),Duration.ofSeconds(30));
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"),0));
