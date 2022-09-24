@@ -44,12 +44,13 @@ public class LoginCampusSteps {
         loginPage.AdminUserClickLoginButton();
     }
 
-    @Then("Successfully message should be displayed")
-    public void successfullyMessageShouldBeDisplayed() {
+    @Then("Admin User should login successfully")
+    public void adminUserShouldLoginSuccessfully() {
 
         loginPage = new LoginPage();
         loginPage.validateUserSuccessfullyLoggedIn();
     }
+
 
     @When("Admin User enters invalid credentials from excel {string} and {int}")
     public void adminUserEntersInvalidCredentialsFromExcelSheetNameAndRowNumber(String sheetName, Integer rowNumber) {
@@ -70,8 +71,5 @@ public class LoginCampusSteps {
         loginPage.validateUserSuccessfullyNotLoggedIn();
 
     }
-
-
-
 
 }
