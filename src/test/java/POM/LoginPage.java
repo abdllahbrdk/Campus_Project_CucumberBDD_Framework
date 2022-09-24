@@ -49,7 +49,6 @@ public class LoginPage extends BasePOM {
 
     public void AdminUserClickLoginButton(){
         waitUntilVisibleAndClickableAndThenClick(loginButton);
-       // loginButton.click();
     }
 
     public void validateUserSuccessfullyLoggedIn(){
