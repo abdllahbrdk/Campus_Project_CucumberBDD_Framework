@@ -55,7 +55,7 @@ public class GradeLevelsSteps {
     @Then("Already exist message should be displayed")
     public void alreadyExistMessageShouldBeDisplayed() {
         dialogContents = new DialogContents();
-        dialogContents.alreadyExistMessageValidation();
+        dialogContents.validateAlreadyExistMessage();
     }
 
     @When("Admin user edit grade levels name as {string} shortname as {string} and order as {string}")

@@ -15,7 +15,6 @@ import java.time.Duration;
 import org.openqa.selenium.support.ui.Select;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import org.testng.Assert;
 import javax.xml.xpath.XPath;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -114,7 +113,14 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//ms-delete-button//button")
     private WebElement firstDeleteButton;
 
-    
+    @FindBy(xpath = "//ms-masked-text-field[@formcontrolname='iban']//input")
+    private WebElement ibanInput;
+
+    @FindBy(xpath = "//mat-select[@formcontrolname='currency']")
+    private WebElement currencyInput;
+
+    @FindBy(xpath = "//mat-option[@role='option']//span[text()=' USD ']")
+    private WebElement currency;
        @FindBys({
             @FindBy(xpath = "//mat-option[contains(@id,'mat-option')]//span")
     })
@@ -132,7 +138,7 @@ public class DialogContents extends BasePOM {
     public void addGradeLevels(String name,String shortName1,String order){
         waitUntilVisibleAndClickableAndThenClick(addButton);
         wait.until(ExpectedConditions.visibilityOf(nameInput)).sendKeys(name);
-        shortName.sendKeys(shortName1);
+        shortNameInput.sendKeys(shortName1);
         orderInput.sendKeys(order);
         saveButton.click();
     }
@@ -197,8 +203,8 @@ public class DialogContents extends BasePOM {
         waitUntilVisibleAndClickableAndThenClick(editButton);
         nameInput.clear();
         nameInput.sendKeys(name);
-        shortName.clear();
-        shortName.sendKeys(shortName2);
+        shortNameInput.clear();
+        shortNameInput.sendKeys(shortName2);
         orderInput.clear();
         orderInput.sendKeys(order);
         waitUntilVisibleAndClickableAndThenClick(saveButton);
@@ -487,11 +493,6 @@ public class DialogContents extends BasePOM {
         waitUntilVisibleAndClickableAndThenClick(saveButton);
     }
 
-    public void validateSearchFunction() {
-        wait.until(ExpectedConditions.visibilityOf(searchButton));
-        Assert.assertTrue(searchButton.isDisplayed());
-
-    }
 
     public void adminUserAddBankAccounts(String name, String iban, String intCode) {
         mouseAction(addButton);
@@ -537,9 +538,5 @@ public class DialogContents extends BasePOM {
 
     }
 
-    public void deleteNegativeTest(String newName) {
-        searchInput.sendKeys(newName);
-        searchButton.click();
-    }
 
 }

@@ -58,7 +58,7 @@ public class FieldsSteps {
     @Then("There is no Data Display message should be displayed")
     public void thereIsNoDataDisplayMessageShouldBeDisplayed() {
         dialogContents = new DialogContents();
-        dialogContents.validateThereIsNoData();
+        dialogContents.validateNoDataMessage();
     }
 
 

@@ -43,7 +43,7 @@ public class DocumentTypesSteps {
     public void successfullyMessageShouldBeDisplayed() {
 
         dialogContents = new DialogContents();
-        dialogContents.validateUserSuccessfullyMessage();
+        dialogContents.validateSuccessMessage();
 
 
     }
