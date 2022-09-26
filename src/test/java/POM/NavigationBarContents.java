@@ -73,6 +73,28 @@ public class NavigationBarContents extends BasePOM {
     @FindBy(xpath = "(//span[text()='Setup'])[3]")
     private WebElement setUpButtonForAttestations;
 
+    @FindBy(xpath = "//span[text()='Education']")
+    private WebElement educationButton;
+
+    @FindBy(xpath = "(//span[text()='Setup'])[4]")
+    private WebElement setupButtonForEducation;
+
+    @FindBy(xpath = "//span[text()='Subject Categories']")
+    private WebElement subjectCategoriesButton;
+
+    public void navigateToSubjectCategoriesUnderEducation() {
+        educationButton.click();
+        setupButtonForEducation.click();
+        subjectCategoriesButton.click();
+    }
+
+    public void navigateToSchoolLocationsPage(){
+
+        setupButton.click();
+        schoolSetup.click();
+        locationsButton.click();
+    }
+
     public void navigateToGradeLevelsPage(){
         setupButton.click();
         parametersButton.click();

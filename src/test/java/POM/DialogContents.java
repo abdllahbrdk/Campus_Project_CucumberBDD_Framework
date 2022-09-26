@@ -129,6 +129,64 @@ public class DialogContents extends BasePOM {
     @FindBy(xpath = "//ms-dialog-content//mat-select")
     private WebElement stageButton;
 
+    @FindBy(xpath = "//mat-slide-toggle[@formcontrolname='active']")
+    private WebElement activateDeactivateSwitchSchoolLocation;
+
+    @FindBy(xpath = "//ms-integer-field[@formcontrolname='capacity']//input")
+    private WebElement capacityInput;
+
+    public void addSubjectCategories(String name, String code){
+        waitUntilLoading();
+        Assert.assertTrue(searchButton.isDisplayed());
+        waitUntilVisibleAndClickableAndThenClick(addButton);
+        nameInput.sendKeys(name);
+        codeInput.sendKeys(code);
+        saveButton.click();
+    }
+
+    public void editSubjectCategories(String name,String code) {
+        waitUntilLoading();
+        editButton.click();
+        nameInput.clear();
+        nameInput.sendKeys(name);
+        codeInput.clear();
+        codeInput.sendKeys(code);
+        activateDeactivateSwitchSchoolLocation.click();
+        saveButton.click();
+    }
+
+    public void deleteSubjectCategories(){
+        waitUntilLoading();
+        Assert.assertTrue(searchButton.isDisplayed());
+        waitUntilVisibleAndClickableAndThenClick(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+    }
+
+    public void addSchoolLocation(String name,String shortName,String capacity) {
+        waitUntilLoading();
+        Assert.assertTrue(addButton.isDisplayed());
+        waitUntilVisibleAndClickableAndThenClick(addButton);
+        nameInput.sendKeys(name);
+        shortNameInput.sendKeys(shortName);
+        capacityInput.sendKeys(capacity);
+        saveButton.click();
+    }
+
+    public void editSchoolLocation(String name,String shortName){
+        waitUntilVisibleAndClickableAndThenClick(editButton);
+        nameInput.clear();
+        nameInput.sendKeys(name);
+        shortNameInput.clear();
+        shortNameInput.sendKeys(shortName);
+        activateDeactivateSwitchSchoolLocation.click();
+        saveButton.click();
+    }
+
+    public void deleteSchoolLocation() {
+        waitUntilVisibleAndClickableAndThenClick(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+    }
+
     public void switchActivateAndDeactivate(){
         waitUntilVisibleAndClickableAndThenClick(activateDeactivateSwitch);
         Assert.assertTrue(successMessage.isDisplayed());
