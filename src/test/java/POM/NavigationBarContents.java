@@ -82,6 +82,9 @@ public class NavigationBarContents extends BasePOM {
     @FindBy(xpath = "//span[text()='Subject Categories']")
     private WebElement subjectCategoriesButton;
 
+    @FindBy(xpath = "//span[text()='Nationalities']")
+    private WebElement nationalitiesButton;
+
     public void navigateToSubjectCategoriesUnderEducation() {
         educationButton.click();
         setupButtonForEducation.click();
@@ -168,6 +171,14 @@ public class NavigationBarContents extends BasePOM {
         setupButton.click();
         parametersButton.click();
         documentTypesButton.click();
+    }
+
+    public void navigateToNationalitiesPage() {
+
+        setupButton.click();
+        parametersButton.click();
+        waitUntilVisibleAndClickableAndThenClick(nationalitiesButton);
+
     }
 
 }

@@ -596,5 +596,41 @@ public class DialogContents extends BasePOM {
 
     }
 
+    public void adminUserAddNationality(String name) {
+
+        waitUntilVisibleAndClickableAndThenClick(addButton);
+        nameInput.sendKeys(name);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+
+    }
+
+    public void adminUserEditNationality(String name, String newName) {
+
+        searchInput.sendKeys(name);
+        waitUntilVisibleAndClickableAndThenClick(searchButton);
+        mouseAction(editButton);
+        nameInput.clear();
+        nameInput.sendKeys(newName);
+        waitUntilVisibleAndClickableAndThenClick(saveButton);
+
+    }
+
+    public void adminUserDeleteNationality(String newName) {
+
+        searchInput.sendKeys(newName);
+        searchButton.click();
+        mouseAction(trashButton);
+        waitUntilVisibleAndClickableAndThenClick(deleteButton);
+
+    }
+
+    public void adminUserDeleteAgainNationality(String newName) {
+
+        searchInput.sendKeys(newName);
+        searchButton.click();
+
+    }
+
+
 
 }
