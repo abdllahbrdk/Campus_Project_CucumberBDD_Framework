@@ -302,6 +302,7 @@ public class DialogContents extends BasePOM {
 
     public void addDocumentTypes(String name, String stage){
 
+        waitUntilLoading();
         addButton.click();
         nameInput.sendKeys(name);
         stageButton.click();
